@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration>
+    <Appenders>
+        <Console name="StdOut" target="SYSTEM_OUT">
+            <PatternLayout pattern="%d{dd.MM.yyyy HH:mm:ss.SSS} %-5p [%C{1.}.%M] %m %n"/>
+            <ThresholdFilter level="ERROR" onMatch="DENY" onMismatch="ACCEPT"/>
+        </Console>
+        <Console name="StdErr" target="SYSTEM_ERR">
+            <PatternLayout pattern="%d{dd.MM.yyyy HH:mm:ss.SSS} %-5p [%C{1.}.%M] %m %n"/>
+            <ThresholdFilter level="ERROR" onMatch="ACCEPT" onMismatch="DENY"/>
+        </Console>
+        <RollingFile name="UpBiasLogFile" fileName="upbias.log" filePattern="upbias-%d{MM-dd-yyyy}-%i.log">
+            <PatternLayout pattern="%d{dd.MM.yyyy HH:mm:ss.SSS} %-5p [%C{*}.%M] %m %n"/>
+            <Policies>
+                <TimeBasedTriggeringPolicy />
+                <SizeBasedTriggeringPolicy size="250 MB"/>
+            </Policies>
+        </RollingFile>
+        <RollingFile name="SimulatorLogFile" fileName="simulator.log" filePattern="simulator-%d{MM-dd-yyyy}-%i.log">
+            <PatternLayout pattern="%d{dd.MM.yyyy HH:mm:ss.SSS} %-5p [%C{*}.%M] %m %n"/>
+            <Policies>
+                <TimeBasedTriggeringPolicy />
+                <SizeBasedTriggeringPolicy size="250 MB"/>
+            </Policies>
+        </RollingFile>
+        <File name="UpBiasNavFile" fileName="output_nav.csv" append="false"/>
+        <File name="UpBiasChartFile" fileName="output_chart.csv" append="false"/>
+        <File name="UpBiasTradesFile" fileName="output_trades.csv" append="false"/>
+        <File name="UpBiasOrdersFile" fileName="output_orders.csv" append="false"/>
+        <File name="UpBiasAllocationsFile" fileName="output_allocations.csv" append="false"/>
+        <File name="UpBiasPortfolioAllocsFile" fileName="output_portfolioAllocs.csv" append="false"/>
+        <File name="UpBiasExampleFile" fileName="output_example.csv" append="false"/>
+        <RollingFile name="KeepFreshLogFile" fileName="keepFresh.log" filePattern="keepFresh-%d{MM-dd-yyyy}-%i.log">
+            <PatternLayout pattern="%d{dd.MM.yyyy HH:mm:ss.SSS} %-5p [%C{*}.%M] %m %n"/>
+            <Policies>
+                <TimeBasedTriggeringPolicy />
+                <SizeBasedTriggeringPolicy size="250 MB"/>
+            </Policies>
+        </RollingFile>
+    </Appenders>
+    <Loggers>
+        <Root level="warn">
+            <AppenderRef ref="StdOut"/>
+            <AppenderRef ref="StdErr"/>
+        </Root>
+        <logger name="org.springframework" level="error" />
+        <logger name="org.springframework.beans.factory.support.DisposableBeanAdapter" level="error" />
+        <logger name="upbias" level="debug" >
+            <AppenderRef ref="UpBiasLogFile"/>
+        </logger>
+        <logger name="simulator" level="debug" >
+            <AppenderRef ref="SimulatorLogFile"/>
+        </logger>
+        <logger name="upbiasNav" level="debug" additivity="false">
+            <AppenderRef ref="UpBiasNavFile"/>
+        </logger>
+        <logger name="upbiasChart" level="debug" additivity="false">
+            <AppenderRef ref="UpBiasChartFile"/>
+        </logger>
+        <logger name="upbiasTrades" level="debug" additivity="false">
+            <AppenderRef ref="UpBiasTradesFile"/>
+        </logger>
+        <logger name="upbiasOrders" level="debug" additivity="false">
+            <AppenderRef ref="UpBiasOrdersFile"/>
+            <AppenderRef ref="UpBiasLogFile"/>
+        </logger>
+        <logger name="upbiasAllocations" level="debug" additivity="false">
+            <AppenderRef ref="UpBiasAllocationsFile"/>
+        </logger>
+        <logger name="upbiasPortfolioAllocs" level="debug" additivity="false">
+            <AppenderRef ref="UpBiasPortfolioAllocsFile"/>
+        </logger>
+        <logger name="upbiasExample" level="debug" additivity="false">
+            <AppenderRef ref="UpBiasExampleFile"/>
+        </logger>
+        <logger name="keepFresh" level="debug" >
+            <AppenderRef ref="KeepFreshLogFile"/>
+        </logger>
+	</Loggers>
+</Configuration>
+
